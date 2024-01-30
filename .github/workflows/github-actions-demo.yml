@@ -33,12 +33,13 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          DOCKER_CONFIG: $GITHUB_WORKSPACE/.docker
         run: |
-          mkdir -p $HOME/.docker
-          echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"auth\":\"$(echo -n "$DOCKER_USERNAME:$DOCKER_PASSWORD" | base64)\"}}}" > $GITHUB_WORKSPACE/config.json
-          cp $GITHUB_WORKSPACE/config.json $HOME/.docker/config.json
-          docker build -t abdeljalilelhassani/csa-app:latest .
-          docker push abdeljalilelhassani/csa-app:latest
+          mkdir -p $DOCKER_CONFIG
+          echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"auth\":\"$(echo -n "$DOCKER_USERNAME:$DOCKER_PASSWORD" | base64)\"}}}" > $DOCKER_CONFIG/config.json
+          docker --config $DOCKER_CONFIG build -t abdeljalilelhassani/your-app-name:latest .
+          docker --config $DOCKER_CONFIG push abdeljalilelhassani/your-app-name:latest
+      
       
       
       
