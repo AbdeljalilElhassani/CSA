@@ -37,3 +37,4 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
           docker build -t abdeljalilelhassani/CSA-BACKEND:latest .
           docker push abdeljalilelhassani/CSA-BACKEND:latest
+      
