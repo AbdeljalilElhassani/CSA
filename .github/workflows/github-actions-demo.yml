@@ -31,8 +31,8 @@ jobs:
       - name: Set up Docker
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          username: "abdeljalilelhassani"
+          password: "Elhassani@Abdeljalil#01"
 
       - name: Build and push Docker image
         if: success()
