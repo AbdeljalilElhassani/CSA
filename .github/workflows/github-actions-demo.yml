@@ -34,7 +34,8 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-          docker build -t abdeljalilelhassani/CSA-BACKEND:latest .
-          docker push abdeljalilelhassani/CSA-BACKEND:latest
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME"
+          docker build -t your-docker-username/your-app-name:latest .
+          docker push your-docker-username/your-app-name:latest
+      
       
