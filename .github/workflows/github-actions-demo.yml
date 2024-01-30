@@ -32,6 +32,6 @@ jobs:
       - name: Build and push Docker image
         if: success()
         run: |
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME"
           docker build -t abdeljalilelhassani/csa-app:latest .
           docker push abdeljalilelhassani/csa-app:latest
