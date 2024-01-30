@@ -29,6 +29,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
+      - name: Login to Docker Hub
+        run: echo $DOCKER_ACCESS_TOKEN | docker login -u $DOCKER_USERNAME
+
       - name: Build and push Docker image
         if: success()
         run: |
