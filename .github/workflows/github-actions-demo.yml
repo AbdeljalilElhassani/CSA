@@ -24,7 +24,7 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: |
-          docker build -t your-registry/java-backend:latest .
+          winpty docker build -t your-registry/java-backend:latest .
           echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin your-registry
           docker push your-registry/java-backend:latest
 
