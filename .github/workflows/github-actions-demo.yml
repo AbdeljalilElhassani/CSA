@@ -11,7 +11,7 @@ jobs:
 
     env:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      DOCKER_PASSWORD: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+      DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -32,6 +32,6 @@ jobs:
       - name: Build and push Docker image
         if: success()
         run: |
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" 
+          echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"auth\":\"$(echo -n "$DOCKER_USERNAME:$DOCKER_ACCESS_TOKEN" | base64)\"}}}" > $HOME/.docker/config.json
           docker build -t abdeljalilelhassani/csa-app:latest .
           docker push abdeljalilelhassani/csa-app:latest
