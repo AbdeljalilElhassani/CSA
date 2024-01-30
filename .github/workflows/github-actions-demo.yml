@@ -34,9 +34,11 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_ACCESS_TOKEN }}
         run: |
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-          docker build -t abdeljalilelhassani/your-app-name:latest .
-          docker push abdeljalilelhassani/your-app-name:latest
+          mkdir -p ~/.docker
+          echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"auth\":\"$(echo -n "$DOCKER_USERNAME:$DOCKER_PASSWORD" | base64)\"}}}" > ~/.docker/config.json
+          docker build -t abdeljalilelhassani/CSA-APP:latest .
+          docker push abdeljalilelhassani/CSA-APP:latest
+      
       
       
       
