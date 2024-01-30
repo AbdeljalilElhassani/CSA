@@ -24,8 +24,8 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: |
-          winpty docker build -t your-registry/java-backend:latest .
-          echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin your-registry
+          docker build -t your-registry/java-backend:latest .
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD your-registry
           docker push your-registry/java-backend:latest
 
       - name: Setup Node.js
@@ -44,6 +44,6 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: |
-          winpty docker build -t your-registry/react-frontend:latest src/main/resources/static/.
-          echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin your-registry
+          docker build -t your-registry/react-frontend:latest src/main/resources/static/.
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD your-registry
           docker push your-registry/react-frontend:latest
