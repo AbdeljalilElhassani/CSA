@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -25,24 +29,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Test with Gradle
-        run: ./gradlew test
-
       - name: Build and push Docker image
         if: success()
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-          DOCKER_CONFIG: $GITHUB_WORKSPACE/.docker
         run: |
-          mkdir -p $DOCKER_CONFIG
-          echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"auth\":\"$(echo -n "$DOCKER_USERNAME:$DOCKER_PASSWORD" | base64)\"}}}" > $DOCKER_CONFIG/config.json
-          docker --config $DOCKER_CONFIG build -t abdeljalilelhassani/csa-app:latest .
-          docker --config $DOCKER_CONFIG push abdeljalilelhassani/csa-app:latest
-      
-      
-      
-      
-      
-      
-      
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          docker build -t abdeljalilelhassani/csa-app:latest .
+          docker push abdeljalilelhassani/csa-app:latest
