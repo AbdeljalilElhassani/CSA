@@ -31,6 +31,12 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      - name: Download MySQL Connector
+        run: |
+          wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.26/mysql-connector-java-8.0.26.jar
+          mkdir -p libs
+          mv mysql-connector-java-8.0.26.jar libs/
+
       - name: Make Gradlew Executable
         run: chmod +x ./gradlew
 
@@ -40,17 +46,6 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew test
 
-
-      - name: Download MySQL Connector
-        run: |
-            wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.26/mysql-connector-java-8.0.26.jar
-            mkdir -p libs
-            mv mysql-connector-java-8.0.26.jar libs/
-
-      - name: Install MySQL driver
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libmysql-java
           
           # Add steps to run your application and populate the database with test data
       - name: Run Application and Populate Test Data
