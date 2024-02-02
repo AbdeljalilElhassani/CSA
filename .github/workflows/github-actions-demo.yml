@@ -9,6 +9,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_USERNAME: root
+          MYSQL_ROOT_PASSWORD:
+          MYSQL_DATABASE: csa_db1
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -27,6 +39,13 @@ jobs:
 
       - name: Test with Gradle
         run: ./gradlew test
+
+
+      - name: Download MySQL Connector/J
+        run:
+          wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.26/mysql-connector-java-8.0.26.jar
+          mkdir -p libs
+          mv mysql-connector-java-8.0.26.jar libs/
 
       - name: Install MySQL driver
         run: |
