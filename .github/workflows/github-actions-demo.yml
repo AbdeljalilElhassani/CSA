@@ -41,11 +41,11 @@ jobs:
         run: ./gradlew test
 
 
-      - name: Download MySQL Connector/J
-        run:
-          wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.26/mysql-connector-java-8.0.26.jar
-          mkdir -p libs
-          mv mysql-connector-java-8.0.26.jar libs/
+      - name: Download MySQL Connector
+        run: |
+            wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.26/mysql-connector-java-8.0.26.jar
+            mkdir -p libs
+            mv mysql-connector-java-8.0.26.jar libs/
 
       - name: Install MySQL driver
         run: |
