@@ -28,6 +28,10 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew test
 
+      # Add steps to run your application and populate the database with test data
+      - name: Run Application and Populate Test Data
+        run: ./gradlew bootRun -Pargs="testData"
+
       - name: Debug Secrets
         run: |
           echo "DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}"
