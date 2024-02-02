@@ -28,7 +28,12 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew test
 
-      # Add steps to run your application and populate the database with test data
+      - name: Install MySQL driver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libmysql-java
+          
+          # Add steps to run your application and populate the database with test data
       - name: Run Application and Populate Test Data
         run: ./gradlew bootRun -Pargs="testData"
 
