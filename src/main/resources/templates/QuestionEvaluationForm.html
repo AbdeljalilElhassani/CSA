@@ -1,0 +1,36 @@
+<!-- questionEvaluationForm.html -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Question Evaluation</title>
+</head>
+<body>
+<h2>Add Question Evaluation</h2>
+<form th:action="@{/addQuestionEvaluation}" th:object="${questionEvaluation}" method="post">
+    <!-- Input fields for the form -->
+    <label>ID:</label>
+    <input type="text" th:field="*{id}" required><br>
+
+    <label>Rubrique ID:</label>
+    <input type="text" th:field="*{idRubriqueEvaluation.id}"><br>
+
+    <label>Question ID:</label>
+    <input type="text" th:field="*{idQuestion.id}"><br>
+
+    <label>Qualificatif ID:</label>
+    <input type="text" th:field="*{idQualificatif.id}"><br>
+
+    <label>Ordre:</label>
+    <input type="text" th:field="*{ordre}" required><br>
+
+    <label>Intitule:</label>
+    <input type="text" th:field="*{intitule}" th:maxlength="64"><br>
+
+    <!-- Add other fields as needed -->
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

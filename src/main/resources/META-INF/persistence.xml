@@ -1,0 +1,48 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="CSA-PU" transaction-type="RESOURCE_LOCAL">
+        <class>entities.Avenant</class>
+        <class>entities.Candidat</class>
+        <class>entities.CodeNotation</class>
+        <class>entities.ContactStage</class>
+        <class>entities.CritereEntreprise</class>
+        <class>entities.Diplome</class>
+        <class>entities.Droit</class>
+        <class>entities.ElementConstitutif</class>
+        <class>entities.Employe</class>
+        <class>entities.Enseignant</class>
+        <class>entities.Entreprise</class>
+        <class>entities.EntrepriseJn</class>
+        <class>entities.Etudiant</class>
+        <class>entities.Evaluation</class>
+        <class>entities.EvaluationEntreprise</class>
+        <class>entities.Formation</class>
+        <class>entities.NotationStage</class>
+        <class>entities.NoteEntreprise</class>
+        <class>entities.OffreStage</class>
+        <class>entities.PosteEntreprise</class>
+        <class>entities.Promotion</class>
+        <class>entities.Qualificatif</class>
+        <class>entities.Question</class>
+        <class>entities.QuestionEvaluation</class>
+        <class>entities.ReponseEvaluation</class>
+        <class>entities.ReponseQuestion</class>
+        <class>entities.Rubrique</class>
+        <class>entities.RubriqueEvaluation</class>
+        <class>entities.RubriqueQuestion</class>
+        <class>entities.Soutenance</class>
+        <class>entities.Stage</class>
+        <class>entities.StructureEvaluation</class>
+        <class>entities.UniteEnseignement</class>
+        <class>entities.VisiteStage</class>
+
+        <properties>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>

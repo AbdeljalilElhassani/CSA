@@ -16,11 +16,14 @@ repositories {
 }
 
 dependencies {
+	implementation ("jakarta.validation:jakarta.validation-api:3.0.0")
+	implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	runtimeOnly("com.mysql:mysql-connector-j")
+	implementation("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation ("org.apache.pdfbox:pdfbox:2.0.24")
+
 }
 
 /*tasks.withType<Test> {
