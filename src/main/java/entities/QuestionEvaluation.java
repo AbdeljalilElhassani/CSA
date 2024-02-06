@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 @Table(name = "question_evaluation")
 public class QuestionEvaluation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_QUESTION_EVALUATION", nullable = false)
     private Long id;
 

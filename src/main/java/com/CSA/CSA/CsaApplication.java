@@ -3,6 +3,8 @@ package com.CSA.CSA;
 import com.CSA.CSA.Controller.EtudiantRepository;
 import com.CSA.CSA.Controller.FormationRepository;
 import com.CSA.CSA.Controller.PromotionRepository;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import entities.Formation;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,14 +13,20 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 
 import entities.Etudiant;
-import entities.Formation;
 import entities.Promotion;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.Instant;
+import java.util.List;
 
 @SpringBootApplication(scanBasePackages = {"com.CSA.CSA", "entities"})
 @EntityScan(basePackages = {"com.CSA.CSA", "entities"})
-public class CsaApplication {
+@EnableJpaRepositories(basePackages = "com.CSA.CSA.Controller")
+
+public class CsaApplication implements WebMvcConfigurer {
 	public static void main(String[] args) {
 		if (args.length > 0 && args[0].equals("testData")) {
 			System.out.println("Running with testData option. Initializing test data...");
@@ -27,7 +35,14 @@ public class CsaApplication {
 
 		SpringApplication.run(CsaApplication.class, args);
 	}
-
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.add(new GsonHttpMessageConverter(gson()));
+	}
+	@Bean
+	public Gson gson() {
+		return new GsonBuilder().create();
+	}
 	@Bean
 	public CommandLineRunner commandLineRunner(EtudiantRepository etudiantRepository,
 											   FormationRepository formationRepository,
@@ -79,6 +94,10 @@ public class CsaApplication {
 			etudiantRepository.save(etudiant); // Save again to update the foreign key in etudiant
 
 			System.out.println("Test data initialization completed.");
+
+			//File templateDir = new File("/app/resources/templates/*");
+			//System.out.println("Templates in directory: " + Arrays.toString(templateDir.listFiles()));
+
 		};
 	}
 }

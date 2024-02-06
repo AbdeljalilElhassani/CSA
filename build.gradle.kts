@@ -23,6 +23,8 @@ dependencies {
 	implementation("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation ("org.apache.pdfbox:pdfbox:2.0.24")
+	implementation ("com.google.code.gson:gson:2.8.9") // Use the latest version
+
 
 }
 

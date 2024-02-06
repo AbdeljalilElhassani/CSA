@@ -46,18 +46,6 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew test
 
-          
-          # Add steps to run your application and populate the database with test data
-      #- name: Run Application and Populate Test Data
-       # run: ./gradlew bootRun -Pargs="testData"
-      #- name: Run Application and Populate Test Data
-       # run: |
-        #  nohup ./gradlew bootRun -Pargs="testData" > app.log 2>&1 &
-         # echo "Waiting for the application to start..."
-          #until grep -q "Test data initialization completed." app.log; do
-           # sleep 5
-          #done
-          #echo "Test data initialization completed."
       - name: Run Application and Populate Test Data
         run: |
           nohup ./gradlew bootRun -Pargs="testData" > app.log 2>&1 &

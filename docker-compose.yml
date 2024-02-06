@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  csa-mysql:
+    image: mysql:8
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./csa.sql:/docker-entrypoint-initdb.d/csa.sql  # Mount the SQL file directly
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: csa_db1
+    ports:
+      - "3306:3306"
+    networks:
+      - csa-network
+
+  csa-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - csa-mysql
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://csa-mysql:3306/csa_db1
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+    networks:
+      - csa-network
+
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: csa-mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ""  # Set to an empty string
+      PMA_ALLOW_NO_PASSWORD: "yes"  # Allow no password
+    networks:
+      - csa-network
+
+
+volumes:
+  mysql_data: {}
+
+networks:
+  csa-network:
+    driver: bridge
