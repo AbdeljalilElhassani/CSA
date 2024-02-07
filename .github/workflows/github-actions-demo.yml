@@ -15,7 +15,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: ""
           MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-          MYSQL_DATABASE: csa_db1
+          MYSQL_DATABASE: mydb
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -36,20 +36,19 @@ jobs:
           mkdir -p libs
           mv mysql-connector-java-8.0.26.jar libs/
 
+      - name: Setup Gradle
+        uses: eskatos/setup-gradle@v2
+        with:
+          gradle-version: 8.5
+
       - name: Make Gradlew Executable
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: |
-          ./gradlew build --stacktrace
-          ./gradlew test
-        env:
-          spring_datasource_url: jdbc:mysql://localhost:3306/mydb
-          spring_datasource_username: root
-          spring_datasource_password:
+        run: ./gradlew build --stacktrace
 
-      #- name: Test with Gradle
-       # run: ./gradlew test
+      - name: Test with Gradle
+        run: ./gradlew test
 
       - name: Run TestDataInitializerTest
         run: ./gradlew test --tests=com.CSA.CSA.TestDataInitializerTest
