@@ -1,26 +1,12 @@
 package com.CSA.CSA;
 
-import com.CSA.CSA.Controller.EtudiantRepository;
-import com.CSA.CSA.Controller.FormationRepository;
-import com.CSA.CSA.Controller.PromotionRepository;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import entities.Formation;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Bean;
 
-import entities.Etudiant;
-import entities.Promotion;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.time.Instant;
-import java.util.List;
 
 @SpringBootApplication(scanBasePackages = {"com.CSA.CSA", "entities"})
 @EntityScan(basePackages = {"com.CSA.CSA", "entities"})
@@ -32,8 +18,8 @@ public class CsaApplication implements WebMvcConfigurer {
 			System.out.println("Running with testData option. Initializing test data...");
 			return;
 		}
-
-		SpringApplication.run(CsaApplication.class, args);*/
+*/
+		SpringApplication.run(CsaApplication.class);
 	}
 	/*@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
