@@ -1,10 +1,11 @@
 package entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
 
 @Entity
 public class User {
@@ -19,14 +20,17 @@ public class User {
     @NotNull
     private String password;
 
-    public User(Long idUser, String login, String password) {
-        this.idUser = idUser;
+    @NotNull
+    private byte[] salt;
+
+    @NotNull
+    private String passwordHash;
+
+    public User(String login, String password) {
         this.login = login;
+        this.salt = generateSalt();
         this.password = password;
-    }
-
-    public User() {
-
+        this.passwordHash = hashPassword(password, this.salt);
     }
 
     public Long getIdUser() {
@@ -52,4 +56,46 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public User() {
+
+    }
+
+    // Getters and setters omitted for brevity
+
+    private byte[] generateSalt() {
+        byte[] salt = new byte[16];
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(salt);
+        return salt;
+    }
+
+    private String hashPassword(String password, byte[] salt) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            digest.update(salt);
+            byte[] hashedBytes = digest.digest(password.getBytes());
+            return Base64.getEncoder().encodeToString(hashedBytes);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
+

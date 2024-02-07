@@ -28,14 +28,14 @@ import java.util.List;
 
 public class CsaApplication implements WebMvcConfigurer {
 	public static void main(String[] args) {
-		if (args.length > 0 && args[0].equals("testData")) {
+		/*if (args.length > 0 && args[0].equals("testData")) {
 			System.out.println("Running with testData option. Initializing test data...");
 			return;
 		}
 
-		SpringApplication.run(CsaApplication.class, args);
+		SpringApplication.run(CsaApplication.class, args);*/
 	}
-	@Override
+	/*@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(new GsonHttpMessageConverter(gson()));
 	}
@@ -99,6 +99,6 @@ public class CsaApplication implements WebMvcConfigurer {
 			//System.out.println("Templates in directory: " + Arrays.toString(templateDir.listFiles()));
 
 		};
-	}
+	}*/
 }
 
