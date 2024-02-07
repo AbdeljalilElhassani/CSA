@@ -40,10 +40,16 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build --stacktrace
+        run: |
+          ./gradlew build --stacktrace
+          ./gradlew test
+        env:
+          spring_datasource_url: jdbc:mysql://localhost:3306/mydb
+          spring_datasource_username: root
+          spring_datasource_password:
 
-      - name: Test with Gradle
-        run: ./gradlew test
+      #- name: Test with Gradle
+       # run: ./gradlew test
 
       - name: Run TestDataInitializerTest
         run: ./gradlew test --tests=com.CSA.CSA.TestDataInitializerTest
